@@ -3,10 +3,12 @@ import {BIOS} from "./bios";
 
 (async function () {
     const bios = new BIOS();
+    // Maybe there should be a kind of serial/central bus?
+    // which CPU and RAM will be use to communicate.
 
-    // there must be a kind of BIOS?
     // init RAM
     const ram = new RAM(bios, 1024*1024);
+    ram.init();
     // init CPU
     // init VGA (???)
     // init storage
