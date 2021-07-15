@@ -16,8 +16,11 @@ export class Bus {
     }
 
     public publish(senderName: string, event: any) {
-        for (const subscriber of this.subscribers.values()) {
-            subscriber(senderName, event);
+        for (const [name, subscriber] of this.subscribers) {
+            // do not send event to sender
+            if (name !== senderName) {
+                subscriber(senderName, event);
+            }
         }
     }
 }

@@ -11,10 +11,8 @@ export class Processor {
         protected readonly memoryBus: Bus,
     ) {
         this.bios.log("CPU created");
-        memoryBus.subscribe("CPU", (sender: string, event: any) => {
-            if (sender !== SYSTEM_NAME) {
-                this.bios.log(String(event));
-            }
+        memoryBus.subscribe(SYSTEM_NAME, (sender: string, event: any) => {
+            this.bios.log(String(event));
         });
     }
 
