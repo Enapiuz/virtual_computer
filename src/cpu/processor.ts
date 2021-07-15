@@ -1,5 +1,5 @@
 import {BIOS} from "../bios";
-import {Bus} from "../bus";
+import {Bus, BusEvent} from "../bus";
 
 const SYSTEM_NAME = "CPU";
 
@@ -11,13 +11,16 @@ export class Processor {
         protected readonly memoryBus: Bus,
     ) {
         this.bios.log("CPU created");
-        memoryBus.subscribe(SYSTEM_NAME, (sender: string, event: any) => {
-            this.bios.log(String(event));
+        memoryBus.subscribe(SYSTEM_NAME, (sender: string, event: BusEvent) => {
+            this.bios.log(`[${SYSTEM_NAME}] ${JSON.stringify(event)}`);
         });
     }
 
     public check() {
         this.bios.log("CPU self-checking...");
-        this.memoryBus.publish(SYSTEM_NAME, "fill all 0");
+        this.memoryBus.publish(SYSTEM_NAME, {
+            name: "next free",
+            data: null,
+        });
     }
 }
