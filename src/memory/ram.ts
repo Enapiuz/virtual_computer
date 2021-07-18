@@ -1,14 +1,15 @@
 import {BIOS} from "../bios";
 import {Bus, BusEvent} from "../bus";
+import {Row} from "./row";
 
 const SYSTEM_NAME = 'RAM';
 
 export enum Commands {
-    GetNextFreeCell = "next free"
+    Write = "write",
 }
 
 export class RAM {
-    protected memory: Array<any>
+    protected memory: Array<Row>
 
     constructor(
         protected readonly bios: BIOS,
@@ -21,16 +22,14 @@ export class RAM {
 
     public init() {
         this.bios.log(`Init ${this.size} bytes of memory`)
-        this.memory = Array(this.size).fill(undefined);
+        this.memory = Array(this.size)
+            .fill(undefined)
+            .map(() => new Row());
         this.cpuBus.subscribe(SYSTEM_NAME, (sender: string, event: BusEvent) => {
             this.bios.log(`[${SYSTEM_NAME}] ${JSON.stringify(event)}`);
             switch (event.name) {
-                case Commands.GetNextFreeCell:
-                    this.bios.log("Got next free!");
-                    this.cpuBus.publish(SYSTEM_NAME, {
-                        name: "free cell",
-                        data: 0,
-                    })
+                case Commands.Write:
+                    this.bios.log("Write to RAM");
                     break;
                 default:
                     this.bios.crash("[RAM] received unsupported command!");
