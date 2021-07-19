@@ -14,7 +14,7 @@ export abstract class Element {
     protected foreverValues: Array<{name: string, inputNumber: number, value: boolean}> = [];
     protected circuitFormed: boolean = false;
 
-    protected constructor() {
+    constructor() {
         this.formCircuit();
         this.validateConnections();
         this.circuitFormed = true;
