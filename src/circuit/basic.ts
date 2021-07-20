@@ -14,10 +14,10 @@ export type PortMap = {
 }
 
 export type TruthTable = {
-    [key in Ports]?: {[key in Ports]?: boolean};
+    [key in Ports | 0]?: {[key in Ports]?: boolean};
 }
 
-export class Basic {
+export abstract class Basic {
     protected inputs: Set<Ports> = new Set();
     protected outputs: Set<Ports> = new Set();
 
@@ -27,19 +27,20 @@ export class Basic {
         // TODO: validate truth table
     }
 
-    protected readonly truthTable: TruthTable = {
-        [Ports.A]: {[Ports.A]: false},
-        [Ports.B]: {[Ports.A]: false},
-        [Ports.A + Ports.B]: {[Ports.A]: true}
-    }
+    /**
+     * Example AND:
+     * {
+     *   [0]: {[Ports.A]: false},
+     *   [Ports.A]: {[Ports.A]: false},
+     *   [Ports.B]: {[Ports.A]: false},
+     *   [Ports.A + Ports.B]: {[Ports.A]: true}
+     * }
+     * @protected
+     */
+    protected abstract readonly truthTable: TruthTable;
 
-    protected listInputs(): void {
-        this.inputs.add(Ports.A);
-        this.inputs.add(Ports.B);
-    }
-    protected listOutputs(): void {
-        this.outputs.add(Ports.A);
-    }
+    protected abstract listInputs(): void;
+    protected abstract listOutputs(): void;
 
     public getInputs(): Ports[] {
         return [...this.inputs.values()];
