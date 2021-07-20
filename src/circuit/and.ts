@@ -1,6 +1,7 @@
-import {Basic, Ports, TruthTable} from "./basic";
+import {Ports} from "./basic";
+import {LogicBlock, TruthTable} from "./logic_block";
 
-export class AND extends Basic {
+export class AND extends LogicBlock {
     protected readonly truthTable: TruthTable = {
         [0]: {[Ports.A]: false},
         [Ports.A]: {[Ports.A]: false},

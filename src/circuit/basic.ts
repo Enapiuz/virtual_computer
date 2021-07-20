@@ -1,21 +1,26 @@
 export enum Ports {
-    A = 0b00000001,
-    B = 0b00000010,
-    C = 0b00000100,
-    D = 0b00001000,
-    E = 0b00010000,
-    F = 0b00100000,
-    G = 0b01000000,
-    H = 0b10000000
+    A = 1,
+    B = 1 << 1,
+    C = 1 << 2,
+    D = 1 << 3,
+    E = 1 << 4,
+    F = 1 << 5,
+    G = 1 << 6,
+    H = 1 << 7,
+    I = 1 << 8,
+    J = 1 << 9,
+    K = 1 << 10,
+    L = 1 << 11,
+    M = 1 << 12,
+    N = 1 << 13,
+    O = 1 << 14,
+    P = 1 << 15,
 }
 
 export type PortMap = {
     [key in Ports]?: boolean;
 }
 
-export type TruthTable = {
-    [key in Ports | 0]?: {[key in Ports]?: boolean};
-}
 
 export abstract class Basic {
     protected inputs: Set<Ports> = new Set();
@@ -24,22 +29,16 @@ export abstract class Basic {
     constructor() {
         this.listInputs();
         this.listOutputs();
-        // TODO: validate truth table
     }
 
     /**
-     * Example AND:
-     * {
-     *   [0]: {[Ports.A]: false},
-     *   [Ports.A]: {[Ports.A]: false},
-     *   [Ports.B]: {[Ports.A]: false},
-     *   [Ports.A + Ports.B]: {[Ports.A]: true}
-     * }
-     * @protected
+     * Add element inputs here.
      */
-    protected abstract readonly truthTable: TruthTable;
-
     protected abstract listInputs(): void;
+
+    /**
+     * Add element outputs here.
+     */
     protected abstract listOutputs(): void;
 
     public getInputs(): Ports[] {
@@ -50,13 +49,5 @@ export abstract class Basic {
         return [...this.outputs.values()];
     }
 
-    public eval(inputs: PortMap): PortMap {
-        // TODO: validate inputs
-        const inp = Object.keys(inputs)
-            .filter((key) => inputs[Number(key) as Ports])
-            .reduce((acc, val) => acc + Number(val), 0)
-        // TODO: validate truth table result exists
-        // @ts-ignore
-        return this.truthTable[inp];
-    }
+    public abstract eval(inputs: PortMap): PortMap;
 }
