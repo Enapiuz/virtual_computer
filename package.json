@@ -1,9 +1,9 @@
 {
-  "name": "odin",
+  "name": "virtual_computer",
   "version": "0.1.0",
   "description": "Virtual computer? maybe",
   "main": "src/main.js",
-  "repository": "https://github.com/Enapiuz/Odin.git",
+  "repository": "https://github.com/Enapiuz/virtual_computer.git",
   "author": "Vadim Shashin <enapiuz@gmail.com>",
   "license": "GPLv3",
   "dependencies": {
