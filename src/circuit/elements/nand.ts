@@ -1,9 +1,9 @@
-import {Ports} from "./basic";
-import {LogicBlock, TruthTable} from "./logic_block";
+import {Ports} from "../basic";
+import {LogicBlock, TruthTable} from "../logic_block";
 
-export class XOR extends LogicBlock {
+export class NAND extends LogicBlock {
     protected readonly truthTable: TruthTable = {
-        [0]: {[Ports.A]: false},
+        [0]: {[Ports.A]: true},
         [Ports.A]: {[Ports.A]: true},
         [Ports.B]: {[Ports.A]: true},
         [Ports.A + Ports.B]: {[Ports.A]: false}

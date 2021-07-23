@@ -1,7 +1,7 @@
 import {Basic, PortMap, Ports} from "./basic";
-import {AND} from "./and";
-import {XOR} from "./xor";
-import {PASS} from "./pass";
+import {AND} from "./elements/and";
+import {XOR} from "./elements/xor";
+import {PASS} from "./elements/pass";
 
 export type ElementWithState = {
     element: Basic;

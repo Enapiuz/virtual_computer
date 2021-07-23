@@ -1,12 +1,12 @@
-import {Ports} from "./basic";
-import {LogicBlock, TruthTable} from "./logic_block";
+import {Ports} from "../basic";
+import {LogicBlock, TruthTable} from "../logic_block";
 
-export class AND extends LogicBlock {
+export class NOR extends LogicBlock {
     protected readonly truthTable: TruthTable = {
-        [0]: {[Ports.A]: false},
+        [0]: {[Ports.A]: true},
         [Ports.A]: {[Ports.A]: false},
         [Ports.B]: {[Ports.A]: false},
-        [Ports.A + Ports.B]: {[Ports.A]: true}
+        [Ports.A + Ports.B]: {[Ports.A]: false}
     }
 
     protected listInputs(): void {
