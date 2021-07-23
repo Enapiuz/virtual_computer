@@ -1,6 +1,6 @@
 import {Ports} from "./circuit/basic";
-import {CircuitBoard} from "./circuit/circuit_board";
 import {logDeep} from "./utils";
+import {HalfAdder} from "./circuit/blocks/half_adder";
 
 (async function () {
     // This function can be considered as a part of BIOS.
@@ -12,7 +12,7 @@ import {logDeep} from "./utils";
     // console.log(lb1.getOutputs());
     // console.log(lb1.eval({[Ports.A]: true, [Ports.B]: true}))
 
-    const board = new CircuitBoard();
+    const board = new HalfAdder();
     const result = board.eval({
         [Ports.A]: true,
         [Ports.B]: true

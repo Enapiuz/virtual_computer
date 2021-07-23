@@ -21,7 +21,7 @@ export type IOPort = {
     elementPort: Ports;
 }
 
-export class CircuitBoard {
+export abstract class CircuitBoard {
     private elements: Map<string, ElementWithState> = new Map();
     private connections: Array<Connection> = [];
 
@@ -32,7 +32,7 @@ export class CircuitBoard {
         this.formBoard();
     }
 
-    private addElement(name: string, element: Basic): void {
+    protected addElement(name: string, element: Basic): void {
         this.elements.set(name, {
             element,
             inputState: {},
@@ -40,38 +40,26 @@ export class CircuitBoard {
         });
     }
 
-    private addConnection(srcName: string, srcOutput: Ports, dstName: string, dstInput: Ports): void {
+    protected addConnection(srcName: string, srcOutput: Ports, dstName: string, dstInput: Ports): void {
         this.connections.push({srcName, srcOutput, dstName, dstInput});
     }
 
-    private addInput(externalPort: Ports, elementName: string, elementPort: Ports): void {
+    protected addInput(externalPort: Ports, elementName: string, elementPort: Ports): void {
         this.inputs.set(externalPort, {
             elementName,
             elementPort
         });
     }
 
-    private addOutput(externalPort: Ports, elementName: string, elementPort: Ports): void {
+    protected addOutput(externalPort: Ports, elementName: string, elementPort: Ports): void {
         this.outputs.set(externalPort, {
             elementName,
             elementPort
         });
     }
 
-    protected formBoard(): void {
-        this.addElement("and1", new AND());
-        this.addElement("xor1", new XOR());
-        this.addElement("input1", new PASS());
-        this.addElement("input2", new PASS());
-        this.addConnection("input1", Ports.A, "and1", Ports.A);
-        this.addConnection("input1", Ports.A, "xor1", Ports.A);
-        this.addConnection("input2", Ports.A, "and1", Ports.B);
-        this.addConnection("input2", Ports.A, "xor1", Ports.B);
-        this.addInput(Ports.A, "input1", Ports.A);
-        this.addInput(Ports.B, "input2", Ports.A);
-        this.addOutput(Ports.A, "xor1", Ports.A); // sum
-        this.addOutput(Ports.B, "and1", Ports.A); // carry
-    }
+    // Where to create and connect all the elements
+    protected abstract formBoard(): void;
 
     private resetState(): void {
         [...this.elements.keys()].forEach((elementName) => {
