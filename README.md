@@ -1,5 +1,5 @@
 # Virtual Computer
-Fun project to build virtual computer purely from logical blocks.
+Fun project to build a virtual computer purely from logical blocks.
 
 ## Goal
 - 8bit (or 16, maybe) general purpose MISC CPU.
