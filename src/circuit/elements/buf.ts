@@ -2,7 +2,7 @@ import {Port} from "../basic";
 import {LogicBlock, TruthTable} from "../logic_block";
 
 // Crutch to pass input to multiple other elements
-export class PASS extends LogicBlock {
+export class BUF extends LogicBlock {
     protected readonly truthTable: TruthTable = {
         [0]: {[Port.A]: false},
         [Port.A]: {[Port.A]: true}
