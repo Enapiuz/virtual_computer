@@ -6,10 +6,10 @@ import {Port} from "../basic";
 
 export class HalfAdder extends CircuitBoard {
     protected formBoard() {
-        this.addElement("and1", new AND());
-        this.addElement("xor1", new XOR());
         this.addElement("input1", new BUF());
         this.addElement("input2", new BUF());
+        this.addElement("and1", new AND());
+        this.addElement("xor1", new XOR());
         this.addConnection("input1", Port.A, "and1", Port.A);
         this.addConnection("input1", Port.A, "xor1", Port.A);
         this.addConnection("input2", Port.A, "and1", Port.B);
