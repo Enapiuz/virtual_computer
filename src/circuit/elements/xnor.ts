@@ -1,21 +1,21 @@
-import {Ports} from "../basic";
+import {Port} from "../basic";
 import {LogicBlock, TruthTable} from "../logic_block";
 
 export class XNOR extends LogicBlock {
     protected readonly truthTable: TruthTable = {
-        [0]: {[Ports.A]: true},
-        [Ports.A]: {[Ports.A]: false},
-        [Ports.B]: {[Ports.A]: false},
-        [Ports.A + Ports.B]: {[Ports.A]: true}
+        [0]: {[Port.A]: true},
+        [Port.A]: {[Port.A]: false},
+        [Port.B]: {[Port.A]: false},
+        [Port.A + Port.B]: {[Port.A]: true}
     }
 
     protected listInputs(): void {
-        this.inputs.add(Ports.A);
-        this.inputs.add(Ports.B);
+        this.inputs.add(Port.A);
+        this.inputs.add(Port.B);
     }
 
     protected listOutputs(): void {
-        this.outputs.add(Ports.A);
+        this.outputs.add(Port.A);
     }
 
 }

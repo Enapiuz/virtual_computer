@@ -1,4 +1,4 @@
-export enum Ports {
+export enum Port {
     A = 1,
     B = 1 << 1,
     C = 1 << 2,
@@ -18,14 +18,14 @@ export enum Ports {
 }
 
 export type PortMap = {
-    [key in Ports]?: boolean;
+    [key in Port]?: boolean;
 }
 
 export abstract class Basic {
     // For automatic input validation purposes
-    public abstract getInputPorts(): Ports[];
+    public abstract getInputPorts(): Port[];
     // For automatic output validation purposes
-    public abstract getOutputPorts(): Ports[];
+    public abstract getOutputPorts(): Port[];
     // Place something in, get something out
     public abstract eval(inputs: PortMap): PortMap;
 }

@@ -1,7 +1,7 @@
-import {Basic, PortMap, Ports} from "./basic";
+import {Basic, PortMap, Port} from "./basic";
 
 export type TruthTable = {
-    [key in Ports | 0]?: {[key in Ports]?: boolean};
+    [key in Port | 0]?: {[key in Port]?: boolean};
 }
 
 export abstract class LogicBlock extends Basic {
@@ -17,8 +17,8 @@ export abstract class LogicBlock extends Basic {
      */
     protected abstract readonly truthTable: TruthTable;
 
-    protected inputs: Set<Ports> = new Set();
-    protected outputs: Set<Ports> = new Set();
+    protected inputs: Set<Port> = new Set();
+    protected outputs: Set<Port> = new Set();
 
     constructor() {
         super();
@@ -30,18 +30,18 @@ export abstract class LogicBlock extends Basic {
     protected abstract listInputs(): void;
     protected abstract listOutputs(): void;
 
-    public getInputPorts(): Ports[] {
+    public getInputPorts(): Port[] {
         return [...this.inputs.values()];
     }
 
-    public getOutputPorts(): Ports[] {
+    public getOutputPorts(): Port[] {
         return [...this.outputs.values()];
     }
 
     public eval(inputs: PortMap): PortMap {
         // TODO: validate inputs
         const inp = Object.keys(inputs)
-            .filter((key) => inputs[Number(key) as Ports])
+            .filter((key) => inputs[Number(key) as Port])
             .reduce((acc, val) => acc + Number(val), 0)
         // TODO: validate truth table result exists
         // @ts-ignore

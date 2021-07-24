@@ -1,4 +1,4 @@
-import {Basic, PortMap, Ports} from "./basic";
+import {Basic, PortMap, Port} from "./basic";
 
 export type ElementWithState = {
     element: Basic;
@@ -8,22 +8,22 @@ export type ElementWithState = {
 
 export type Connection = {
     srcName: string;
-    srcOutput: Ports;
+    srcOutput: Port;
     dstName: string;
-    dstInput: Ports;
+    dstInput: Port;
 }
 
 export type IOPort = {
     elementName: string;
-    elementPort: Ports;
+    elementPort: Port;
 }
 
 export abstract class CircuitBoard extends Basic {
     private elements: Map<string, ElementWithState> = new Map();
     private connections: Array<Connection> = [];
 
-    private inputs: Map<Ports, IOPort> = new Map();
-    private outputs: Map<Ports, IOPort> = new Map();
+    private inputs: Map<Port, IOPort> = new Map();
+    private outputs: Map<Port, IOPort> = new Map();
 
     constructor() {
         super();
@@ -38,18 +38,18 @@ export abstract class CircuitBoard extends Basic {
         });
     }
 
-    protected addConnection(srcName: string, srcOutput: Ports, dstName: string, dstInput: Ports): void {
+    protected addConnection(srcName: string, srcOutput: Port, dstName: string, dstInput: Port): void {
         this.connections.push({srcName, srcOutput, dstName, dstInput});
     }
 
-    protected addInput(externalPort: Ports, elementName: string, elementPort: Ports): void {
+    protected addInput(externalPort: Port, elementName: string, elementPort: Port): void {
         this.inputs.set(externalPort, {
             elementName,
             elementPort
         });
     }
 
-    protected addOutput(externalPort: Ports, elementName: string, elementPort: Ports): void {
+    protected addOutput(externalPort: Port, elementName: string, elementPort: Port): void {
         this.outputs.set(externalPort, {
             elementName,
             elementPort
@@ -66,11 +66,11 @@ export abstract class CircuitBoard extends Basic {
         });
     }
 
-    public getInputPorts(): Ports[] {
+    public getInputPorts(): Port[] {
         return [...this.inputs.keys()];
     }
 
-    public getOutputPorts(): Ports[] {
+    public getOutputPorts(): Port[] {
         return [...this.outputs.keys()];
     }
 
