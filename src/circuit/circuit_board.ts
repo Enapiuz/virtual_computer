@@ -1,7 +1,4 @@
 import {Basic, PortMap, Ports} from "./basic";
-import {AND} from "./elements/and";
-import {XOR} from "./elements/xor";
-import {PASS} from "./elements/pass";
 
 export type ElementWithState = {
     element: Basic;
@@ -21,7 +18,7 @@ export type IOPort = {
     elementPort: Ports;
 }
 
-export abstract class CircuitBoard {
+export abstract class CircuitBoard extends Basic {
     private elements: Map<string, ElementWithState> = new Map();
     private connections: Array<Connection> = [];
 
@@ -29,6 +26,7 @@ export abstract class CircuitBoard {
     private outputs: Map<Ports, IOPort> = new Map();
 
     constructor() {
+        super();
         this.formBoard();
     }
 
@@ -66,6 +64,14 @@ export abstract class CircuitBoard {
             (this.elements.get(elementName) as ElementWithState).inputState = {};
             (this.elements.get(elementName) as ElementWithState).outputState = {};
         });
+    }
+
+    public getInputPorts(): Ports[] {
+        return [...this.inputs.keys()];
+    }
+
+    public getOutputPorts(): Ports[] {
+        return [...this.outputs.keys()];
     }
 
     public eval(inputs: PortMap): PortMap {

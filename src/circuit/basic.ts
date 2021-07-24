@@ -21,33 +21,11 @@ export type PortMap = {
     [key in Ports]?: boolean;
 }
 
-
 export abstract class Basic {
-    protected inputs: Set<Ports> = new Set();
-    protected outputs: Set<Ports> = new Set();
-
-    constructor() {
-        this.listInputs();
-        this.listOutputs();
-    }
-
-    /**
-     * Add element inputs here.
-     */
-    protected abstract listInputs(): void;
-
-    /**
-     * Add element outputs here.
-     */
-    protected abstract listOutputs(): void;
-
-    public getInputs(): Ports[] {
-        return [...this.inputs.values()];
-    }
-
-    public getOutputs(): Ports[] {
-        return [...this.outputs.values()];
-    }
-
+    // For automatic input validation purposes
+    public abstract getInputPorts(): Ports[];
+    // For automatic output validation purposes
+    public abstract getOutputPorts(): Ports[];
+    // Place something in, get something out
     public abstract eval(inputs: PortMap): PortMap;
 }

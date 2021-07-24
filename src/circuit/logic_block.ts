@@ -17,9 +17,25 @@ export abstract class LogicBlock extends Basic {
      */
     protected abstract readonly truthTable: TruthTable;
 
+    protected inputs: Set<Ports> = new Set();
+    protected outputs: Set<Ports> = new Set();
+
     constructor() {
         super();
+        this.listInputs();
+        this.listInputs();
         // TODO: validate truth table
+    }
+
+    protected abstract listInputs(): void;
+    protected abstract listOutputs(): void;
+
+    public getInputPorts(): Ports[] {
+        return [...this.inputs.values()];
+    }
+
+    public getOutputPorts(): Ports[] {
+        return [...this.outputs.values()];
     }
 
     public eval(inputs: PortMap): PortMap {
