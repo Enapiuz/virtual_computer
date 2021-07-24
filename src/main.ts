@@ -1,12 +1,13 @@
 import {Port} from "./circuit/basic";
 import {logDeep} from "./utils";
-import {HalfAdder} from "./circuit/blocks/half_adder";
+import {Adder} from "./circuit/blocks/adder";
 
 (async function () {
-    const board = new HalfAdder();
+    const board = new Adder();
     const result = board.eval({
         [Port.A]: true,
-        [Port.B]: true
+        [Port.B]: true,
+        [Port.C]: false
     });
     logDeep(result);
 })()
