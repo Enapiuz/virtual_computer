@@ -106,6 +106,27 @@ export abstract class Element extends Basic {
             // calculate element's output state
             const elementName = q.shift() as string;
             const element = this.elements.get(elementName) as ElementWithState;
+
+            // check if current element has enough input data
+            const requiredInputSlots = element.element.getInputPorts().map(Number).sort();
+            const filledInputSlots = Object.keys(element.inputState).map(Number).sort();
+            if (requiredInputSlots.length !== filledInputSlots.length) {
+                q.push(elementName);
+                continue;
+            }
+            let checkFailed = false;
+            for (let i = 0; i < requiredInputSlots.length; i++) {
+                if (requiredInputSlots[i] !== filledInputSlots[i]) {
+                    q.push(elementName);
+                    checkFailed = true;
+                    break;
+                }
+            }
+            if (checkFailed) {
+                q.push(elementName);
+                continue;
+            }
+
             element.outputState = element.element.eval(element.inputState);
 
             // propagate element's output to its connections
