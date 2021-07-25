@@ -1,10 +1,10 @@
 import {Port} from "../basic";
-import {CircuitBoard} from "../circuit_board";
+import {Element} from "../element";
 import {BUF} from "../elements/buf";
 import {HalfAdder} from "./half_adder";
 import {OR} from "../elements/or";
 
-export class Adder extends CircuitBoard {
+export class Adder extends Element {
     protected formBoard(): void {
         // all needed elements
         this.addElement("A", new BUF());

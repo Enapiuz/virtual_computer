@@ -15,4 +15,4 @@ import {Adder} from "./circuit/blocks/adder";
     .catch((e) => {
         console.error(e);
         process.exit(1);
-    })
+    });

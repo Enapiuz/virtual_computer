@@ -18,7 +18,7 @@ export type IOPort = {
     elementPort: Port;
 }
 
-export abstract class CircuitBoard extends Basic {
+export abstract class Element extends Basic {
     private elements: Map<string, ElementWithState> = new Map();
     private connections: Array<Connection> = [];
 
@@ -28,6 +28,7 @@ export abstract class CircuitBoard extends Basic {
     constructor() {
         super();
         this.formBoard();
+        // TODO: validate connections
     }
 
     protected addElement(name: string, element: Basic): void {
