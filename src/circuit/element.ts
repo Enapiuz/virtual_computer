@@ -131,8 +131,8 @@ export abstract class Element extends Basic {
 
             // propagate element's output to its connections
             this.connections
-                .filter((connection) => connection.srcName === elementName)
-                .forEach((connection) => {
+                .filter((connection: Connection) => connection.srcName === elementName)
+                .forEach((connection: Connection) => {
                     const dstElement = this.elements.get(connection.dstName) as ElementWithState;
                     dstElement.inputState[connection.dstInput] = element.outputState[connection.srcOutput];
                     // enqueue connections
