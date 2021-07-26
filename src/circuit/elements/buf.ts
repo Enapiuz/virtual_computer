@@ -1,19 +1,18 @@
-import {Port} from "../basic";
 import {LogicBlock, TruthTable} from "../logic_block";
 
 // Crutch to pass input to multiple other elements
 export class BUF extends LogicBlock {
-    protected readonly truthTable: TruthTable = {
-        [0]: {[Port.P0]: false},
-        [Port.P0]: {[Port.P0]: true}
-    }
+    protected readonly truthTable: TruthTable = [
+        {in: [], out: new Map([[0, false]])},
+        {in: [0], out: new Map([[0, true]])},
+    ]
 
     protected listInputs(): void {
-        this.inputs.add(Port.P0);
+        this.inputs.add(0);
     }
 
     protected listOutputs(): void {
-        this.outputs.add(Port.P0);
+        this.outputs.add(0);
     }
 
 }

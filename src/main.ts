@@ -1,14 +1,9 @@
-import {Port} from "./circuit/basic";
 import {logDeep} from "./utils";
 import {Adder} from "./circuit/blocks/adder";
 
 (async function () {
     const board = new Adder();
-    const result = board.eval({
-        [Port.P0]: false,
-        [Port.P1]: false,
-        [Port.P2]: true
-    });
+    const result = board.eval(new Map([[0, false], [1, false], [2, true]]));
     logDeep(result);
 })()
     .then(() => process.exit(0))

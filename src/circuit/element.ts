@@ -34,8 +34,8 @@ export abstract class Element extends Basic {
     protected addElement(name: string, element: Basic): void {
         this.elements.set(name, {
             element,
-            inputState: {},
-            outputState: {}
+            inputState: new Map(),
+            outputState: new Map()
         });
     }
 
@@ -62,8 +62,8 @@ export abstract class Element extends Basic {
 
     private resetState(): void {
         [...this.elements.keys()].forEach((elementName) => {
-            (this.elements.get(elementName) as ElementWithState).inputState = {};
-            (this.elements.get(elementName) as ElementWithState).outputState = {};
+            (this.elements.get(elementName) as ElementWithState).inputState = new Map();
+            (this.elements.get(elementName) as ElementWithState).outputState = new Map();
         });
     }
 
@@ -93,9 +93,9 @@ export abstract class Element extends Basic {
             // ioPort.elementName - to which element assign input value
             const ioPort = this.inputs.get(inputPort) as IOPort;
             // TODO: validate if input exists
-            const inputValue = inputs[inputPort] as boolean;
+            const inputValue = inputs.get(inputPort) as boolean;
             const inputElement = this.elements.get(ioPort.elementName) as ElementWithState;
-            inputElement.inputState[ioPort.elementPort] = inputValue;
+            inputElement.inputState.set(ioPort.elementPort, inputValue);
             // enqueue input elements to calculate outputs
             q.push(ioPort.elementName);
             qmap.add(ioPort.elementName);
@@ -108,8 +108,9 @@ export abstract class Element extends Basic {
             const element = this.elements.get(elementName) as ElementWithState;
 
             // check if current element has enough input data
-            const requiredInputSlots = element.element.getInputPorts().map(Number).sort();
-            const filledInputSlots = Object.keys(element.inputState).map(Number).sort();
+            const requiredInputSlots = element.element.getInputPorts().sort();
+            const filledInputSlots = [...element.inputState.keys()].sort();
+            // const filledInputSlots = Object.keys(element.inputState).map(Number).sort();
             if (requiredInputSlots.length !== filledInputSlots.length) {
                 q.push(elementName);
                 continue;
@@ -134,7 +135,7 @@ export abstract class Element extends Basic {
                 .filter((connection: Connection) => connection.srcName === elementName)
                 .forEach((connection: Connection) => {
                     const dstElement = this.elements.get(connection.dstName) as ElementWithState;
-                    dstElement.inputState[connection.dstInput] = element.outputState[connection.srcOutput];
+                    dstElement.inputState.set(connection.dstInput, element.outputState.get(connection.srcOutput) as boolean);
                     // enqueue connections
                     if (!qmap.has(connection.dstName)) {
                         q.push(connection.dstName);
@@ -143,13 +144,13 @@ export abstract class Element extends Basic {
                 })
         }
 
-        const result: PortMap = {};
+        const result: PortMap = new Map();
         // find output elements and return their state
         [...this.outputs.keys()].forEach((outputPort) => {
            // outputPort - name of the board's output
             const ioPort = this.outputs.get(outputPort) as IOPort;
             const element = this.elements.get(ioPort.elementName) as ElementWithState;
-            result[outputPort] = element.outputState[ioPort.elementPort];
+            result.set(outputPort, element.outputState.get(ioPort.elementPort) as boolean);
         });
 
         return result;

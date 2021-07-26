@@ -1,24 +1,23 @@
 import each from "jest-each";
-import {Port} from "../basic";
 import {HalfAdder} from "./half_adder";
 
 describe("Half adder", () => {
     each([
         {
-            input: {[Port.P0]: false, [Port.P1]: false},
-            output: {[Port.P0]: false, [Port.P1]: false},
+            input: new Map([[0, false], [1, false]]),
+            output: new Map([[0, false], [1, false]]),
         },
         {
-            input: {[Port.P0]: false, [Port.P1]: true},
-            output: {[Port.P0]: true, [Port.P1]: false},
+            input: new Map([[0, false], [1, true]]),
+            output: new Map([[0, true], [1, false]]),
         },
         {
-            input: {[Port.P0]: true, [Port.P1]: false},
-            output: {[Port.P0]: true, [Port.P1]: false},
+            input: new Map([[0, true], [1, false]]),
+            output: new Map([[0, true], [1, false]]),
         },
         {
-            input: {[Port.P0]: true, [Port.P1]: true},
-            output: {[Port.P0]: false, [Port.P1]: true},
+            input: new Map([[0, true], [1, true]]),
+            output: new Map([[0, false], [1, true]]),
         }
     ]).test("%o", (dataset) => {
         const ha = new HalfAdder();

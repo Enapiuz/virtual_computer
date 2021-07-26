@@ -1,8 +1,9 @@
-enum Errors {
+export enum Errors {
     WRONG_INPUT,
+    INVALID_TRUTH_TABLE,
 }
 
-class CircuitError extends Error {
+export class CircuitError extends Error {
     protected code: Errors;
 
     protected constructor(code: Errors) {
