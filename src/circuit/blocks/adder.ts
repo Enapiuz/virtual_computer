@@ -15,22 +15,22 @@ export class Adder extends Element {
         this.addElement("or0", new OR());
 
         // connect external inputs
-        this.addInput(Port.A, "A", Port.A);
-        this.addInput(Port.B, "B", Port.A);
-        this.addInput(Port.C, "carryIn", Port.A);
+        this.addInput(Port.P0, "A", Port.P0);
+        this.addInput(Port.P1, "B", Port.P0);
+        this.addInput(Port.P2, "carryIn", Port.P0);
 
         // connect internal inputs
-        this.addConnection("A", Port.A, "ha0", Port.A);
-        this.addConnection("B", Port.A, "ha0", Port.B);
-        this.addConnection("carryIn", Port.A, "ha1", Port.A);
+        this.addConnection("A", Port.P0, "ha0", Port.P0);
+        this.addConnection("B", Port.P0, "ha0", Port.P1);
+        this.addConnection("carryIn", Port.P0, "ha1", Port.P0);
 
         // connect elements
-        this.addConnection("ha0", Port.A, "ha1", Port.B);
-        this.addConnection("ha0", Port.B, "or0", Port.B);
-        this.addConnection("ha1", Port.B, "or0", Port.A);
+        this.addConnection("ha0", Port.P0, "ha1", Port.P1);
+        this.addConnection("ha0", Port.P1, "or0", Port.P1);
+        this.addConnection("ha1", Port.P1, "or0", Port.P0);
 
         // define outputs
-        this.addOutput(Port.A, "ha1", Port.A);
-        this.addOutput(Port.B, "or0", Port.A);
+        this.addOutput(Port.P0, "ha1", Port.P0);
+        this.addOutput(Port.P1, "or0", Port.P0);
     }
 }

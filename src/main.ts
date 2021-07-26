@@ -5,9 +5,9 @@ import {Adder} from "./circuit/blocks/adder";
 (async function () {
     const board = new Adder();
     const result = board.eval({
-        [Port.A]: false,
-        [Port.B]: false,
-        [Port.C]: true
+        [Port.P0]: false,
+        [Port.P1]: false,
+        [Port.P2]: true
     });
     logDeep(result);
 })()

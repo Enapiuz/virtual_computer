@@ -5,20 +5,20 @@ import {HalfAdder} from "./half_adder";
 describe("Half adder", () => {
     each([
         {
-            input: {[Port.A]: false, [Port.B]: false},
-            output: {[Port.A]: false, [Port.B]: false},
+            input: {[Port.P0]: false, [Port.P1]: false},
+            output: {[Port.P0]: false, [Port.P1]: false},
         },
         {
-            input: {[Port.A]: false, [Port.B]: true},
-            output: {[Port.A]: true, [Port.B]: false},
+            input: {[Port.P0]: false, [Port.P1]: true},
+            output: {[Port.P0]: true, [Port.P1]: false},
         },
         {
-            input: {[Port.A]: true, [Port.B]: false},
-            output: {[Port.A]: true, [Port.B]: false},
+            input: {[Port.P0]: true, [Port.P1]: false},
+            output: {[Port.P0]: true, [Port.P1]: false},
         },
         {
-            input: {[Port.A]: true, [Port.B]: true},
-            output: {[Port.A]: false, [Port.B]: true},
+            input: {[Port.P0]: true, [Port.P1]: true},
+            output: {[Port.P0]: false, [Port.P1]: true},
         }
     ]).test("%o", (dataset) => {
         const ha = new HalfAdder();

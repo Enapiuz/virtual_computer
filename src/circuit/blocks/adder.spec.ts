@@ -6,36 +6,36 @@ import {Port} from "../basic";
 describe("Adder", () => {
     each([
         {
-            input: {[Port.A]: false, [Port.B]: false, [Port.C]: false},
-            output: {[Port.A]: false, [Port.B]: false}
+            input: {[Port.P0]: false, [Port.P1]: false, [Port.P2]: false},
+            output: {[Port.P0]: false, [Port.P1]: false}
         },
         {
-            input: {[Port.A]: false, [Port.B]: false, [Port.C]: true},
-            output: {[Port.A]: true, [Port.B]: false}
+            input: {[Port.P0]: false, [Port.P1]: false, [Port.P2]: true},
+            output: {[Port.P0]: true, [Port.P1]: false}
         },
         {
-            input: {[Port.A]: false, [Port.B]: true, [Port.C]: false},
-            output: {[Port.A]: true, [Port.B]: false}
+            input: {[Port.P0]: false, [Port.P1]: true, [Port.P2]: false},
+            output: {[Port.P0]: true, [Port.P1]: false}
         },
         {
-            input: {[Port.A]: false, [Port.B]: true, [Port.C]: true},
-            output: {[Port.A]: false, [Port.B]: true}
+            input: {[Port.P0]: false, [Port.P1]: true, [Port.P2]: true},
+            output: {[Port.P0]: false, [Port.P1]: true}
         },
         {
-            input: {[Port.A]: true, [Port.B]: false, [Port.C]: false},
-            output: {[Port.A]: true, [Port.B]: false}
+            input: {[Port.P0]: true, [Port.P1]: false, [Port.P2]: false},
+            output: {[Port.P0]: true, [Port.P1]: false}
         },
         {
-            input: {[Port.A]: true, [Port.B]: false, [Port.C]: true},
-            output: {[Port.A]: false, [Port.B]: true}
+            input: {[Port.P0]: true, [Port.P1]: false, [Port.P2]: true},
+            output: {[Port.P0]: false, [Port.P1]: true}
         },
         {
-            input: {[Port.A]: true, [Port.B]: true, [Port.C]: false},
-            output: {[Port.A]: false, [Port.B]: true}
+            input: {[Port.P0]: true, [Port.P1]: true, [Port.P2]: false},
+            output: {[Port.P0]: false, [Port.P1]: true}
         },
         {
-            input: {[Port.A]: true, [Port.B]: true, [Port.C]: true},
-            output: {[Port.A]: true, [Port.B]: true}
+            input: {[Port.P0]: true, [Port.P1]: true, [Port.P2]: true},
+            output: {[Port.P0]: true, [Port.P1]: true}
         }
     ]).test("%o", (dataset) => {
         const adder = new Adder();
