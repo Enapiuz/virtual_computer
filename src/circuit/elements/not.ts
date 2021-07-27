@@ -14,5 +14,4 @@ export class NOT extends LogicBlock {
     protected listOutputs(): void {
         this.outputs.add(0);
     }
-
 }

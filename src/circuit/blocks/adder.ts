@@ -29,7 +29,7 @@ export class Adder extends Element {
         this.addConnection("ha1", 1, "or0", 0);
 
         // define outputs
-        this.addOutput(0, "ha1", 0);
-        this.addOutput(1, "or0", 0);
+        this.addOutput(0, "ha1", 0); // sum
+        this.addOutput(1, "or0", 0); // carry out
     }
 }

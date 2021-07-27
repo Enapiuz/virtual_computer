@@ -1,4 +1,6 @@
-import {Basic, PortMap, Port} from "./basic";
+import {Basic, Port, PortMap} from "./basic";
+import {CircuitError, Errors} from "./error";
+import {logDeep} from "../utils";
 
 export type ElementWithState = {
     element: Basic;
@@ -57,6 +59,10 @@ export abstract class Element extends Basic {
         });
     }
 
+    protected prefillValue(elementName: string, elementPort: Port, value: boolean): void {
+        (this.elements.get(elementName) as ElementWithState).inputState.set(elementPort, value);
+    }
+
     // Where to create and connect all the elements
     protected abstract formBoard(): void;
 
@@ -77,7 +83,7 @@ export abstract class Element extends Basic {
 
     public eval(inputs: PortMap): PortMap {
         // reset state
-        this.resetState();
+        // this.resetState();
 
         // init queue, such a complicated thing
         const q: string[] = [];
@@ -101,6 +107,8 @@ export abstract class Element extends Basic {
             qmap.add(ioPort.elementName);
         });
 
+        const queueReturners = new Map<string, number>();
+
         // kinda BFS on out graph of elements
         while(q.length > 0) {
             // calculate element's output state
@@ -112,6 +120,16 @@ export abstract class Element extends Basic {
             const filledInputSlots = [...element.inputState.keys()].sort();
             // const filledInputSlots = Object.keys(element.inputState).map(Number).sort();
             if (requiredInputSlots.length !== filledInputSlots.length) {
+                if (!queueReturners.has(elementName)) {
+                    queueReturners.set(elementName, 1);
+                }
+                const totalReturns = queueReturners.get(elementName) as number;
+                if (totalReturns > 100) {
+                    logDeep(this.elements)
+                    console.error(`[${this.constructor.name}] ${elementName} got back ${totalReturns} times`);
+                    throw CircuitError.withCode(Errors.CYCLIC_CIRCUIT);
+                }
+                queueReturners.set(elementName, totalReturns + 1);
                 q.push(elementName);
                 continue;
             }

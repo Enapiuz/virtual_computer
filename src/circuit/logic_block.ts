@@ -28,7 +28,7 @@ export abstract class LogicBlock extends Basic {
     constructor() {
         super();
         this.listInputs();
-        this.listInputs();
+        this.listOutputs();
         // TODO: validate truth table
     }
 

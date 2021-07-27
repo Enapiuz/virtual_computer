@@ -1,3 +1,5 @@
 /.idea
 /build
 node_modules
+tsconfig.tsbuildinfo
+/.parcel-cache
