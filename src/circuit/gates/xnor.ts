@@ -1,6 +1,6 @@
-import {LogicBlock, TruthTable} from "../logic_block";
+import {Gate, TruthTable} from "../gate";
 
-export class XNOR extends LogicBlock {
+export class XNOR extends Gate {
     protected readonly truthTable: TruthTable = [
         {in: [], out: new Map([[0, true]])},
         {in: [0], out: new Map([[0, false]])},

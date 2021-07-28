@@ -1,10 +1,10 @@
-import {LogicBlock, TruthTable} from "../logic_block";
+import {Gate, TruthTable} from "../gate";
 
 // Crutch to pass input to multiple other elements
-export class BUF extends LogicBlock {
+export class NOT extends Gate {
     protected readonly truthTable: TruthTable = [
-        {in: [], out: new Map([[0, false]])},
-        {in: [0], out: new Map([[0, true]])},
+        {in: [], out: new Map([[0, true]])},
+        {in: [0], out: new Map([[0, false]])},
     ]
 
     protected listInputs(): void {
@@ -14,5 +14,4 @@ export class BUF extends LogicBlock {
     protected listOutputs(): void {
         this.outputs.add(0);
     }
-
 }

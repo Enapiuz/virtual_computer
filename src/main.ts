@@ -1,5 +1,5 @@
 import {logDeep} from "./utils";
-import {Adder16} from "./circuit/blocks/adder16";
+import {Adder16} from "./circuit/elements/adder16";
 
 (async function () {
     const board = new Adder16();

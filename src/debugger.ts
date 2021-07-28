@@ -1,5 +1,5 @@
 import ForceGraph from "force-graph";
-import {Adder16} from "./circuit/blocks/adder16";
+import {Adder16} from "./circuit/elements/adder16";
 import {IOPort} from "./circuit/element";
 import * as d3 from "d3"
 

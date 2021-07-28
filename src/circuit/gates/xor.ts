@@ -1,11 +1,11 @@
-import {LogicBlock, TruthTable} from "../logic_block";
+import {Gate, TruthTable} from "../gate";
 
-export class OR extends LogicBlock {
+export class XOR extends Gate {
     protected readonly truthTable: TruthTable = [
         {in: [], out: new Map([[0, false]])},
         {in: [0], out: new Map([[0, true]])},
         {in: [1], out: new Map([[0, true]])},
-        {in: [0, 1], out: new Map([[0, true]])},
+        {in: [0, 1], out: new Map([[0, false]])},
     ]
 
     protected listInputs(): void {

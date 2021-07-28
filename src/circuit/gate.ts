@@ -8,7 +8,7 @@ export type TruthRow = {
 
 export type TruthTable = Array<TruthRow>;
 
-export abstract class LogicBlock extends Basic {
+export abstract class Gate extends Basic {
     /**
      * Example AND:
      * [

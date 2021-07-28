@@ -1,7 +1,7 @@
 import {Element} from "../element";
 import {Adder} from "./adder";
 import {Port} from "../basic";
-import {BUF} from "../elements/buf";
+import {BUF} from "../gates/buf";
 
 export class Adder16 extends Element {
     protected formBoard() {

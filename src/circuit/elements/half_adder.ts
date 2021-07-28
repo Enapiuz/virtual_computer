@@ -1,7 +1,7 @@
 import {Element} from "../element";
-import {AND} from "../elements/and";
-import {XOR} from "../elements/xor";
-import {BUF} from "../elements/buf";
+import {AND} from "../gates/and";
+import {XOR} from "../gates/xor";
+import {BUF} from "../gates/buf";
 
 export class HalfAdder extends Element {
     protected formBoard() {
