@@ -5,7 +5,7 @@ export class BUF extends Gate {
     protected readonly truthTable: TruthTable = [
         {in: [], out: new Map([[0, false]])},
         {in: [0], out: new Map([[0, true]])},
-    ]
+    ];
 
     protected listInputs(): void {
         this.inputs.add(0);
@@ -14,5 +14,4 @@ export class BUF extends Gate {
     protected listOutputs(): void {
         this.outputs.add(0);
     }
-
 }

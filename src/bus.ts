@@ -9,13 +9,16 @@ export interface BusEvent {
 export class Bus {
     protected subscribers = new Map<string, Function>();
 
-    constructor(protected readonly bios: BIOS, protected readonly name: string) {
+    constructor(
+        protected readonly bios: BIOS,
+        protected readonly name: string
+    ) {
         this.bios.log(`${this.name} bus init...`);
     }
 
     public subscribe(subscriberName: string, cb: Function) {
         if (this.subscribers.has(subscriberName)) {
-            this.bios.crash(`Subscriber ${subscriberName} already exists.`)
+            this.bios.crash(`Subscriber ${subscriberName} already exists.`);
         }
         this.subscribers.set(subscriberName, cb);
     }

@@ -6,7 +6,7 @@ export class XNOR extends Gate {
         {in: [0], out: new Map([[0, false]])},
         {in: [1], out: new Map([[0, false]])},
         {in: [0, 1], out: new Map([[0, true]])},
-    ]
+    ];
 
     protected listInputs(): void {
         this.inputs.add(0);
@@ -16,5 +16,4 @@ export class XNOR extends Gate {
     protected listOutputs(): void {
         this.outputs.add(0);
     }
-
 }

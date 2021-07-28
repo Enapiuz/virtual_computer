@@ -6,19 +6,19 @@ export type ElementWithState = {
     element: Basic;
     inputState: PortMap;
     outputState: PortMap;
-}
+};
 
 export type Connection = {
     srcName: string;
     srcOutput: Port;
     dstName: string;
     dstInput: Port;
-}
+};
 
 export type IOPort = {
     elementName: string;
     elementPort: Port;
-}
+};
 
 export abstract class Element extends Basic {
     private elements: Map<string, ElementWithState> = new Map();
@@ -37,30 +37,50 @@ export abstract class Element extends Basic {
         this.elements.set(name, {
             element,
             inputState: new Map(),
-            outputState: new Map()
+            outputState: new Map(),
         });
     }
 
-    protected addConnection(srcName: string, srcOutput: Port, dstName: string, dstInput: Port): void {
+    protected addConnection(
+        srcName: string,
+        srcOutput: Port,
+        dstName: string,
+        dstInput: Port
+    ): void {
         this.connections.push({srcName, srcOutput, dstName, dstInput});
     }
 
-    protected addInput(externalPort: Port, elementName: string, elementPort: Port): void {
+    protected addInput(
+        externalPort: Port,
+        elementName: string,
+        elementPort: Port
+    ): void {
         this.inputs.set(externalPort, {
             elementName,
-            elementPort
+            elementPort,
         });
     }
 
-    protected addOutput(externalPort: Port, elementName: string, elementPort: Port): void {
+    protected addOutput(
+        externalPort: Port,
+        elementName: string,
+        elementPort: Port
+    ): void {
         this.outputs.set(externalPort, {
             elementName,
-            elementPort
+            elementPort,
         });
     }
 
-    protected prefillValue(elementName: string, elementPort: Port, value: boolean): void {
-        (this.elements.get(elementName) as ElementWithState).inputState.set(elementPort, value);
+    protected prefillValue(
+        elementName: string,
+        elementPort: Port,
+        value: boolean
+    ): void {
+        (this.elements.get(elementName) as ElementWithState).inputState.set(
+            elementPort,
+            value
+        );
     }
 
     // Where to create and connect all the elements
@@ -68,8 +88,10 @@ export abstract class Element extends Basic {
 
     private resetState(): void {
         [...this.elements.keys()].forEach((elementName) => {
-            (this.elements.get(elementName) as ElementWithState).inputState = new Map();
-            (this.elements.get(elementName) as ElementWithState).outputState = new Map();
+            (this.elements.get(elementName) as ElementWithState).inputState =
+                new Map();
+            (this.elements.get(elementName) as ElementWithState).outputState =
+                new Map();
         });
     }
 
@@ -100,7 +122,9 @@ export abstract class Element extends Basic {
             const ioPort = this.inputs.get(inputPort) as IOPort;
             // TODO: validate if input exists
             const inputValue = inputs.get(inputPort) as boolean;
-            const inputElement = this.elements.get(ioPort.elementName) as ElementWithState;
+            const inputElement = this.elements.get(
+                ioPort.elementName
+            ) as ElementWithState;
             inputElement.inputState.set(ioPort.elementPort, inputValue);
             // enqueue input elements to calculate outputs
             q.push(ioPort.elementName);
@@ -110,7 +134,7 @@ export abstract class Element extends Basic {
         const queueReturners = new Map<string, number>();
 
         // kinda BFS on out graph of elements
-        while(q.length > 0) {
+        while (q.length > 0) {
             // calculate element's output state
             const elementName = q.shift() as string;
             const element = this.elements.get(elementName) as ElementWithState;
@@ -125,8 +149,10 @@ export abstract class Element extends Basic {
                 }
                 const totalReturns = queueReturners.get(elementName) as number;
                 if (totalReturns > 100) {
-                    logDeep(this.elements)
-                    console.error(`[${this.constructor.name}] ${elementName} got back ${totalReturns} times`);
+                    logDeep(this.elements);
+                    console.error(
+                        `[${this.constructor.name}] ${elementName} got back ${totalReturns} times`
+                    );
                     throw CircuitError.withCode(Errors.CYCLIC_CIRCUIT);
                 }
                 queueReturners.set(elementName, totalReturns + 1);
@@ -150,25 +176,38 @@ export abstract class Element extends Basic {
 
             // propagate element's output to its connections
             this.connections
-                .filter((connection: Connection) => connection.srcName === elementName)
+                .filter(
+                    (connection: Connection) =>
+                        connection.srcName === elementName
+                )
                 .forEach((connection: Connection) => {
-                    const dstElement = this.elements.get(connection.dstName) as ElementWithState;
-                    dstElement.inputState.set(connection.dstInput, element.outputState.get(connection.srcOutput) as boolean);
+                    const dstElement = this.elements.get(
+                        connection.dstName
+                    ) as ElementWithState;
+                    dstElement.inputState.set(
+                        connection.dstInput,
+                        element.outputState.get(connection.srcOutput) as boolean
+                    );
                     // enqueue connections
                     if (!qmap.has(connection.dstName)) {
                         q.push(connection.dstName);
                         qmap.add(connection.dstName);
                     }
-                })
+                });
         }
 
         const result: PortMap = new Map();
         // find output elements and return their state
         [...this.outputs.keys()].forEach((outputPort) => {
-           // outputPort - name of the board's output
+            // outputPort - name of the board's output
             const ioPort = this.outputs.get(outputPort) as IOPort;
-            const element = this.elements.get(ioPort.elementName) as ElementWithState;
-            result.set(outputPort, element.outputState.get(ioPort.elementPort) as boolean);
+            const element = this.elements.get(
+                ioPort.elementName
+            ) as ElementWithState;
+            result.set(
+                outputPort,
+                element.outputState.get(ioPort.elementPort) as boolean
+            );
         });
 
         return result;

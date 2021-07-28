@@ -4,7 +4,7 @@ import {CircuitError, Errors} from "./error";
 export type TruthRow = {
     in: Port[];
     out: PortMap;
-}
+};
 
 export type TruthTable = Array<TruthRow>;
 
@@ -62,8 +62,9 @@ export abstract class Gate extends Basic {
         const positiveInputKeys = [...inputs.keys()]
             .filter((key) => inputs.get(key))
             .sort();
-        const filtered = this.truthTable
-            .filter((row) => this.isPortSame(row.in, positiveInputKeys))
+        const filtered = this.truthTable.filter((row) =>
+            this.isPortSame(row.in, positiveInputKeys)
+        );
         if (filtered.length === 0) {
             throw CircuitError.withCode(Errors.WRONG_INPUT);
         }

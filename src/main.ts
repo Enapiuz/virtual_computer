@@ -12,7 +12,6 @@ import {Adder16} from "./circuit/elements/adder16";
     //@ts-ignore
     const result = board.eval(new Map(imp));
     logDeep(result);
-
 })()
     .then(() => process.exit(0))
     .catch((e) => {
