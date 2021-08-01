@@ -2,10 +2,11 @@ import ForceGraph from "force-graph";
 import {Adder16} from "./circuit/elements/adder16";
 import {IOPort} from "./circuit/element";
 import * as d3 from "d3";
+import {Subtractor16} from "./circuit/elements/subtractor16";
 
 console.log("Hello debugger!");
 
-const elem = new Adder16();
+const elem = new Subtractor16();
 console.log(elem);
 
 // elements
@@ -26,7 +27,7 @@ nodes = [
         //@ts-ignore
         const ioport = elem.inputs.get(c) as IOPort;
         return {
-            id: `inp_${ioport.elementName}${ioport.elementPort}`,
+            id: `inp_${ioport.elementName}_${ioport.elementPort}`,
             level: 1,
             color: "green",
         };
@@ -41,7 +42,7 @@ nodes = [
         //@ts-ignore
         const ioport = elem.outputs.get(c) as IOPort;
         return {
-            id: `outp_${ioport.elementName}${ioport.elementPort}`,
+            id: `outp_${ioport.elementName}_${ioport.elementPort}`,
             level: 3,
             color: "violet",
         };
@@ -63,7 +64,7 @@ links = [
         //@ts-ignore
         const ioport = elem.inputs.get(c) as IOPort;
         return {
-            source: `inp_${ioport.elementName}${ioport.elementPort}`,
+            source: `inp_${ioport.elementName}_${ioport.elementPort}`,
             target: ioport.elementName,
         };
     }),
@@ -78,7 +79,7 @@ links = [
         const ioport = elem.outputs.get(c) as IOPort;
         return {
             source: ioport.elementName,
-            target: `outp_${ioport.elementName}${ioport.elementPort}`,
+            target: `outp_${ioport.elementName}_${ioport.elementPort}`,
         };
     }),
 ];
@@ -123,10 +124,10 @@ const Graph = ForceGraph()(document.getElementById("body") as HTMLElement)
         //@ts-ignore
         node.__bckgDimensions = bckgDimensions; // to re-use in nodePointerAreaPaint
     })
-    .d3Force(
-        "collision",
-        //@ts-ignore
-        d3.forceCollide((node) => Math.sqrt(100))
-    )
+    // .d3Force(
+    //     "collision",
+    //     //@ts-ignore
+    //     d3.forceCollide((node) => Math.sqrt(100))
+    // )
     .d3VelocityDecay(0.1)
     .graphData(gData);

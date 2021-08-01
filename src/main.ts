@@ -1,16 +1,18 @@
 import {logDeep} from "./utils";
-import {Adder16} from "./circuit/elements/adder16";
+import {Subtractor16} from "./circuit/elements/subtractor16";
+import {Port} from "./circuit/basic";
 
 (async function () {
-    const board = new Adder16();
-    const imp: number[][] = Array(32)
+    const board = new Subtractor16();
+    const inp: any = Array(32)
         .fill(undefined)
         .map((_e, idx): any[] => {
             return [idx, true];
         });
-    console.log(imp);
-    //@ts-ignore
-    const result = board.eval(new Map(imp));
+    const inpMap = new Map<Port, boolean>(inp);
+    inpMap.set(32, false);
+    console.log(inpMap);
+    const result = board.eval(inpMap);
     logDeep(result);
 })()
     .then(() => process.exit(0))

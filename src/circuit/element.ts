@@ -148,10 +148,10 @@ export abstract class Element extends Basic {
                     queueReturners.set(elementName, 1);
                 }
                 const totalReturns = queueReturners.get(elementName) as number;
-                if (totalReturns > 100) {
+                if (totalReturns > 99) {
                     logDeep(this.elements);
                     console.error(
-                        `[${this.constructor.name}] ${elementName} got back ${totalReturns} times`
+                        `[${this.constructor.name}] ${elementName} looped ${totalReturns} times`
                     );
                     throw CircuitError.withCode(Errors.CYCLIC_CIRCUIT);
                 }
@@ -209,6 +209,10 @@ export abstract class Element extends Basic {
                 element.outputState.get(ioPort.elementPort) as boolean
             );
         });
+
+        // Should avoid computing same element twice in internal loop
+        // But it's ok to eval entire block more than one in big circuits.
+        qmap.clear();
 
         return result;
     }
