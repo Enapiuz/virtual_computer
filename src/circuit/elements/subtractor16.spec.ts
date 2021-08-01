@@ -50,7 +50,6 @@ describe("Ripple Subtractor 16bit", () => {
         const result = add.eval(
             new Map([...oneInput, ...twoInput, [32, true]])
         );
-        console.log(result.values());
         expect(result.values()).toEqual(expected.values());
     });
 });
