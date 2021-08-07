@@ -1,6 +1,6 @@
 import {logDeep} from "./utils";
 import {Subtractor16} from "./circuit/elements/subtractor16";
-import {Port} from "./circuit/basic";
+import {Port} from "logic-board";
 
 (async function () {
     const board = new Subtractor16();

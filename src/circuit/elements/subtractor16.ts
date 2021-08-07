@@ -1,8 +1,5 @@
-import {Element} from "../element";
-import {BUF} from "../gates/buf";
-import {Port} from "../basic";
+import {Element, BUF, Port, XOR} from "logic-board";
 import {Adder} from "./adder";
-import {XOR} from "../gates/xor";
 
 export class Subtractor16 extends Element {
     protected formBoard() {

@@ -1,7 +1,5 @@
-import {Element} from "../element";
-import {BUF} from "../gates/buf";
+import {Element, BUF, OR} from "logic-board";
 import {HalfAdder} from "./half_adder";
-import {OR} from "../gates/or";
 
 export class Adder extends Element {
     protected formBoard(): void {

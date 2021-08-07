@@ -1,6 +1,6 @@
 import ForceGraph from "force-graph";
 import {Adder16} from "./circuit/elements/adder16";
-import {IOPort} from "./circuit/element";
+import {IOPort} from "logic-board";
 import * as d3 from "d3";
 import {Subtractor16} from "./circuit/elements/subtractor16";
 

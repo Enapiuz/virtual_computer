@@ -1,7 +1,4 @@
-import {Element} from "../element";
-import {AND} from "../gates/and";
-import {XOR} from "../gates/xor";
-import {BUF} from "../gates/buf";
+import {Element, AND, XOR, BUF} from "logic-board";
 
 export class HalfAdder extends Element {
     protected formBoard() {

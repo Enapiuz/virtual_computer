@@ -1,7 +1,5 @@
-import {Element} from "../element";
+import {Element, Port, BUF} from "logic-board";
 import {Adder} from "./adder";
-import {Port} from "../basic";
-import {BUF} from "../gates/buf";
 
 export class Adder16 extends Element {
     protected formBoard() {

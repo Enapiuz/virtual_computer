@@ -5356,6 +5356,11 @@ log-symbols@^4.1.0:
     chalk "^4.1.0"
     is-unicode-supported "^0.1.0"
 
+logic-board@^1.0.3:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/logic-board/-/logic-board-1.0.4.tgz#6af1434aeaf01d5cc5d18890aa384c5824ad91dc"
+  integrity sha512-D1YHlEqEvhTsTjstyeiW5HATRL0f5WGpJyp3lRnbXce98NizK/ecxexBy8SIYyyGV3ajYWHd7GrZs6IplZLcVA==
+
 lowercase-keys@^1.0.0, lowercase-keys@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-1.0.1.tgz#6f9e30b47084d971a7c820ff15a6c5167b74c26f"
