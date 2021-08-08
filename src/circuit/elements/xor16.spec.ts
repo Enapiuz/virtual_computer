@@ -1,0 +1,47 @@
+import each from "jest-each";
+import {Xor16} from "./xor16";
+
+describe("16 bit bitwise XOR", () => {
+    const dataset = [
+        {one: 0, two: 0b1111111111111111, expect: 0b1111111111111111},
+        {
+            one: 0b1111111111111111,
+            two: 0b1111111111111111,
+            expect: 0b0000000000000000,
+        },
+        {
+            one: 0b0000011111111111,
+            two: 0b0000111111111111,
+            expect: 0b0000100000000000,
+        },
+        {one: 0, two: 0, expect: 0b0000000000000000},
+    ];
+    each(dataset).test("XORs right %o", (data) => {
+        const xor = new Xor16();
+        const oneStr = data.one.toString(2).padStart(16, "0");
+        const oneInput = oneStr
+            .slice(oneStr.length - 16, oneStr.length)
+            .split("")
+            .map((char: string, idx: number) => {
+                return [idx, char === "1"];
+            });
+        const twoStr = data.two.toString(2).padStart(16, "0");
+        const twoInput = twoStr
+            .slice(twoStr.length - 16, twoStr.length)
+            .split("")
+            .map((char: string, idx: number) => {
+                return [idx + 16, char === "1"];
+            });
+        const resStr = data.expect.toString(2).padStart(16, "0");
+        const expected = new Map(
+            resStr
+                .slice(resStr.length - 16, resStr.length)
+                .split("")
+                .map((char: string, idx: number) => {
+                    return [idx + 16, char === "1"];
+                })
+        );
+        const result = xor.eval(new Map([...oneInput, ...twoInput]));
+        expect(result.values()).toEqual(expected.values());
+    });
+});
