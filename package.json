@@ -7,7 +7,8 @@
     "author": "Vadim Shashin <enapiuz@gmail.com>",
     "license": "GPL-3.0-or-later",
     "dependencies": {
-        "logic-board": "^1.0.3",
+        "js-yaml": "^4.1.0",
+        "logic-board": "^1.1.1",
         "nodemon": "^2.0.12",
         "typescript": "^4.3.5"
     },
@@ -23,6 +24,7 @@
         "3d-force-graph": "^1.70.5",
         "@types/d3": "^7.0.0",
         "@types/jest": "^26.0.24",
+        "@types/js-yaml": "^4.0.2",
         "@types/node": "^16.3.2",
         "d3": "^7.0.0",
         "force-graph": "^1.42.1",

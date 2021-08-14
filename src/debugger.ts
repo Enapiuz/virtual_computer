@@ -1,13 +1,13 @@
 import ForceGraph from "force-graph";
 import {Adder16} from "./circuit/elements/adder16";
-import {IOPort} from "logic-board";
+// import {IOPort} from "logic-board";
 import * as d3 from "d3";
 import {Subtractor16} from "./circuit/elements/subtractor16";
 import {Xor16} from "./circuit/elements/xor16";
 
 console.log("Hello debugger!");
 
-const elem = new Subtractor16();
+const elem = new Xor16();
 console.log(elem);
 
 // elements

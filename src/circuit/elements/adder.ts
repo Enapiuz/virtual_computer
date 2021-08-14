@@ -1,15 +1,15 @@
-import {Element, BUF, OR} from "logic-board";
+import {Element, gate} from "logic-board";
 import {HalfAdder} from "./half_adder";
 
 export class Adder extends Element {
     protected formBoard(): void {
         // all needed elements
-        this.addElement("A", new BUF());
-        this.addElement("B", new BUF());
-        this.addElement("carryIn", new BUF());
+        this.addElement("A", gate.BUF());
+        this.addElement("B", gate.BUF());
+        this.addElement("carryIn", gate.BUF());
         this.addElement("ha0", new HalfAdder());
         this.addElement("ha1", new HalfAdder());
-        this.addElement("or0", new OR());
+        this.addElement("or0", gate.OR());
 
         // connect external inputs
         this.addInput(0, "A", 0);

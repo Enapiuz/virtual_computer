@@ -1,11 +1,11 @@
-import {Element, AND, XOR, BUF} from "logic-board";
+import {Element, gate} from "logic-board";
 
 export class HalfAdder extends Element {
     protected formBoard() {
-        this.addElement("input1", new BUF());
-        this.addElement("input2", new BUF());
-        this.addElement("and1", new AND());
-        this.addElement("xor1", new XOR());
+        this.addElement("input1", gate.BUF());
+        this.addElement("input2", gate.BUF());
+        this.addElement("and1", gate.AND());
+        this.addElement("xor1", gate.XOR());
         this.addConnection("input1", 0, "and1", 0);
         this.addConnection("input1", 0, "xor1", 0);
         this.addConnection("input2", 0, "and1", 1);

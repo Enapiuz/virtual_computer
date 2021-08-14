@@ -1,0 +1,44 @@
+chip: ADDER
+inputs:
+    0: # A
+        - element: ha0
+          port: 0
+    1: # B
+        - element: ha0
+          port: 1
+    2: # CarryIN
+        - element: ha1
+          port: 0
+elements:
+    - type: HALF_ADDER
+      name: ha0
+    - type: HALF_ADDER
+      name: ha1
+    - type: OR
+      name: or0
+connections:
+    - from:
+          element: ha0
+          port: 0
+      to:
+          element: ha1
+          port: 1
+    - from:
+          element: ha0
+          port: 1
+      to:
+          element: or0
+          port: 1
+    - from:
+          element: ha1
+          port: 1
+      to:
+          element: or0
+          port: 0
+outputs:
+    0: # sum
+        - element: ha1
+          port: 0
+    1: #carry out
+        - element: or0
+          port: 0

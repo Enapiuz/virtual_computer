@@ -1,11 +1,11 @@
-import {Element, Port, BUF} from "logic-board";
+import {Element, Port, gate} from "logic-board";
 import {Adder} from "./adder";
 
 export class Adder16 extends Element {
     protected formBoard() {
         for (let i = 0; i < 16; i++) {
-            this.addElement(`inp${i}`, new BUF()); // first num
-            this.addElement(`inp${i + 16}`, new BUF()); // second num
+            this.addElement(`inp${i}`, gate.BUF()); // first num
+            this.addElement(`inp${i + 16}`, gate.BUF()); // second num
 
             this.addInput(i as Port, `inp${i}`, 0);
             this.addInput((i + 16) as Port, `inp${i + 16}`, 0);

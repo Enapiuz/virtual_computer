@@ -1,0 +1,25 @@
+chip: HALF_ADDER
+inputs:
+    0:
+        - element: and0
+          port: 0
+        - element: xor0
+          port: 0
+    1:
+        - element: and0
+          port: 1
+        - element: xor0
+          port: 1
+elements:
+    - type: AND
+      name: and0
+    - type: XOR
+      name: xor0
+connections: []
+outputs:
+    0: #sum
+        element: xor0
+        port: 0
+    1: #carry
+        element: and0
+        port: 0
