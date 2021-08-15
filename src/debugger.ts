@@ -1,13 +1,9 @@
 import ForceGraph from "force-graph";
-import {Adder16} from "./circuit/elements/adder16";
-// import {IOPort} from "logic-board";
-import * as d3 from "d3";
-import {Subtractor16} from "./circuit/elements/subtractor16";
-import {Xor16} from "./circuit/elements/xor16";
+import {MemoryRow16} from "./circuit/elements/memory_row16";
 
 console.log("Hello debugger!");
 
-const elem = new Xor16();
+const elem = new MemoryRow16();
 console.log(elem);
 
 // elements
@@ -26,7 +22,7 @@ nodes = [
     //@ts-ignore
     ...[...elem.inputs.keys()].map((c) => {
         //@ts-ignore
-        const ioport = elem.inputs.get(c) as IOPort;
+        const ioport = elem.inputs.get(c);
         return {
             id: `inp_${ioport.elementName}_${ioport.elementPort}`,
             level: 1,
@@ -41,7 +37,7 @@ nodes = [
     //@ts-ignore
     ...[...elem.outputs.keys()].map((c) => {
         //@ts-ignore
-        const ioport = elem.outputs.get(c) as IOPort;
+        const ioport = elem.outputs.get(c);
         return {
             id: `outp_${ioport.elementName}_${ioport.elementPort}`,
             level: 3,
@@ -63,7 +59,7 @@ links = [
     //@ts-ignore
     ...[...elem.inputs.keys()].map((c) => {
         //@ts-ignore
-        const ioport = elem.inputs.get(c) as IOPort;
+        const ioport = elem.inputs.get(c);
         return {
             source: `inp_${ioport.elementName}_${ioport.elementPort}`,
             target: ioport.elementName,
@@ -77,7 +73,7 @@ links = [
     //@ts-ignore
     ...[...elem.outputs.keys()].map((c) => {
         //@ts-ignore
-        const ioport = elem.outputs.get(c) as IOPort;
+        const ioport = elem.outputs.get(c);
         return {
             source: ioport.elementName,
             target: `outp_${ioport.elementName}_${ioport.elementPort}`,
